@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendUserWelcomeEmail;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -23,6 +25,17 @@ class UserController extends Controller
             );
             $data = $request->all();
             $user =  User::create($data);
+            if ($user->plan_id === 1) {
+                $planDescription = "Bronze";
+                $planLimit = "10";
+            } else if ($user->plan_id === 2) {
+                $planDescription = "Prata";
+                $planLimit = "20";
+            } else {
+                $planDescription = "Ouro";
+                $planLimit = "Ilimitado";
+            }
+            Mail::to($user->email, $user->name)->send(new SendUserWelcomeEmail($user->name, $planDescription, $planLimit ));
             return response()->json($user, 201);
         } catch (Exception $exception) {
             return response()->json(['message'=> $exception->getMessage()],400);
