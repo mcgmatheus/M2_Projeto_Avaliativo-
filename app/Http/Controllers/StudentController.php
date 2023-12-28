@@ -121,4 +121,38 @@ class StudentController extends Controller
             return response()->json(['message' => $exception->getMessage()], 400);
         }
     }
+    public function show($id)
+    {
+        try {
+            if (!$id) {
+                return response()->json(['message' => 'É necessário fornecer um ID de aluno'], 400);
+            }
+            $userId = Auth::user()->id;
+            $student = Student::findOrFail($id);
+            if ($student && ($userId === $student->user_id)) {
+                $response = [
+                    'id'    => $student->id,
+                    'name' => $student->name,
+                    'email' => $student->email,
+                    'date_birth' => $student->date_birth,
+                    'cpf' => $student->cpf,
+                    'contact' => $student->contact,
+                    'city' => $student->city,
+                    'neighborhood' => $student->neighborhood,
+                    'number' => $student->number,
+                    'street' => $student->street,
+                    'state' => $student->state,
+                    'cep' => $student->cep,
+                ];
+                return response()->json($response, 200);
+            };
+            if ($student && ($student->user_id !== $userId)) {
+                return response()->json(['message' => 'Acesso não autorizado'], 403);
+            };
+        } catch (ModelNotFoundException $exception) {
+            return response()->json(['message' => 'Aluno não encontrado'], 404);
+        } catch (\Exception $exception) {
+            return response()->json(['message' => $exception->getMessage()], 400);
+        }
+    }
 }
