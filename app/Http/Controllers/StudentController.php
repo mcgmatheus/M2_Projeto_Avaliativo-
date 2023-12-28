@@ -39,11 +39,11 @@ class StudentController extends Controller
             return response()->json(['message' => $exception->getMessage()], 400);
         }
     }
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         try {
             $user_id = Auth::user()->id;
-            $find = Student::where('user_id', $user_id)
-            ->select('id', 'name', 'email', 'date_birth', 'cpf', 'contact', 'city', 'neighborhood', 'number', 'street', 'state', 'cep')->orderBy('name');
+            $find = Student::where('user_id', $user_id)->select('id', 'name', 'email', 'date_birth', 'cpf', 'contact', 'city', 'neighborhood', 'number', 'street', 'state', 'cep')->orderBy('name');
 
             if ($request->has('name')) {
                 $name = $request->input('name');
@@ -70,9 +70,51 @@ class StudentController extends Controller
             $student = Student::findOrFail($id);
             if ($student && ($userId === $student->user_id)) {
                 $student->delete();
-                return response()->json([''], 204);}
+                return response()->json([''], 204);
+            }
             if ($student && ($student->user_id !== $userId)) {
-                return response()->json(['message' => 'Acesso não autorizado'], 403);}
+                return response()->json(['message' => 'Acesso não autorizado'], 403);
+            }
+        } catch (ModelNotFoundException $exception) {
+            return response()->json(['message' => 'Aluno não encontrado'], 404);
+        } catch (\Exception $exception) {
+            return response()->json(['message' => $exception->getMessage()], 400);
+        }
+    }
+    public function update($id, Request $request)
+    {
+        try {
+            $userId = Auth::user()->id;
+            $student = Student::findOrFail($id);
+            if ($student && ($userId === $student->user_id)) {
+                if (count(array_diff(array_keys($request->all()), ['name', 'email', 'date_birth', 'cpf', 'contact', 'city', 'neighborhood', 'number', 'street', 'state', 'cep'])) > 0) {
+                    return response()->json(['message' => 'Informações inválidas'], 400);
+                }
+
+                $request->validate([
+                    'name' => 'string|max:255',
+                    'email' => 'string|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/|unique:students|max:255',
+                    'date_birth' => 'date|date_format:Y-m-d',
+                    'cpf' => 'string|unique:students|regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$/|max:14',
+                    // cpf no formato xxx.xxx.xxx-xx
+                    'contact' => 'string|regex:/^\(\d{2}\) \d{5}-\d{4}$/|max:20',
+                    //contato no formato (xx) xxxxx-xxxx
+                    'cep' => 'string|max:20',
+                    'street' => 'string',
+                    'state' => 'string',
+                    'neighborhood' => 'string',
+                    'city' => 'string',
+                    'number' => 'string',
+                ]);
+
+                $data = $request->all();
+                $student->update($data);
+                return response()->json($student, 201);
+            }
+
+            if ($student && ($student->user_id !== $userId)) {
+                return response()->json(['message' => 'Acesso não autorizado'], 403);
+            }
         } catch (ModelNotFoundException $exception) {
             return response()->json(['message' => 'Aluno não encontrado'], 404);
         } catch (\Exception $exception) {
