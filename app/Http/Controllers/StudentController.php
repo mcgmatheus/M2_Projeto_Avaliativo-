@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,6 +59,22 @@ class StudentController extends Controller
             }
             $student = $find->get();
             return response($student, 200);
+        } catch (\Exception $exception) {
+            return response()->json(['message' => $exception->getMessage()], 400);
+        }
+    }
+    public function destroy($id)
+    {
+        try {
+            $userId = Auth::user()->id;
+            $student = Student::findOrFail($id);
+            if ($student && ($userId === $student->user_id)) {
+                $student->delete();
+                return response()->json([''], 204);}
+            if ($student && ($student->user_id !== $userId)) {
+                return response()->json(['message' => 'Acesso não autorizado'], 403);}
+        } catch (ModelNotFoundException $exception) {
+            return response()->json(['message' => 'Aluno não encontrado'], 404);
         } catch (\Exception $exception) {
             return response()->json(['message' => $exception->getMessage()], 400);
         }
