@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Exercise;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ExerciseController extends Controller
@@ -28,6 +29,16 @@ class ExerciseController extends Controller
             $exercise =  Exercise::create($data);
             return response()->json($exercise, 201);
         } catch (Exception $exception) {
+            return response()->json(['message' => $exception->getMessage()], 400);
+        }
+    }
+    public function index(){
+        try {
+            $user = Auth::user();
+            $userId = $user->id;
+            $allExercises = Exercise::where('user_id', $userId)->select('id', 'description')->get();
+            return response($allExercises, 200);
+        } catch (\Exception $exception) {
             return response()->json(['message' => $exception->getMessage()], 400);
         }
     }
