@@ -22,8 +22,10 @@ class verifyUserAccountLimit
         $planId = DB::table('users')->where('id', $user_id)->value('plan_id');
         $planLimit = DB::table('plans')->where('id', $planId)->value('limit');
         $count = Student::where('user_id', $user_id)->count();
-        $available = ($planLimit - $count);
 
+        if($planLimit === null) return $next($request);
+
+        $available = ($planLimit - $count);
         if($available <=0) return response()->json(['message' => 'O usuário atingiu o limite de alunos cadastrados'], 403);
 
         return $next($request);
