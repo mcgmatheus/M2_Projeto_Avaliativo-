@@ -38,4 +38,28 @@ class StudentController extends Controller
             return response()->json(['message' => $exception->getMessage()], 400);
         }
     }
+    public function index(Request $request){
+        try {
+            $user_id = Auth::user()->id;
+            $find = Student::where('user_id', $user_id)
+            ->select('id', 'name', 'email', 'date_birth', 'cpf', 'contact', 'city', 'neighborhood', 'number', 'street', 'state', 'cep')->orderBy('name');
+
+            if ($request->has('name')) {
+                $name = $request->input('name');
+                $find->where('name', 'ilike', "%$name%");
+            }
+            if ($request->has('cpf')) {
+                $cpf = $request->input('cpf');
+                $find->where('cpf', 'ilike', "%$cpf%");
+            }
+            if ($request->has('email')) {
+                $email = $request->input('email');
+                $find->where('email', 'ilike', "%$email%");
+            }
+            $student = $find->get();
+            return response($student, 200);
+        } catch (\Exception $exception) {
+            return response()->json(['message' => $exception->getMessage()], 400);
+        }
+    }
 }
