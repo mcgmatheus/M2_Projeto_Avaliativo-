@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         try {
             $user_id = Auth::user()->id;
 
@@ -18,7 +18,7 @@ class DashboardController extends Controller
 
             $registered_students = DB::table('students')->where('user_id', $user_id)->count();
             $registered_exercises = DB::table('exercises')->where('user_id', $user_id)->count();
-            if($planLimit === null){
+            if ($planLimit === null) {
                 $remaining_estudants = 'Ilimitado';
             } else {
                 $remaining_estudants = ($planLimit - $registered_students);
@@ -26,8 +26,8 @@ class DashboardController extends Controller
             $data = [
                 'registered_students' => $registered_students,
                 'registered_exercises' => $registered_exercises,
-                'current_user_plan'=>$planType,
-                'remaining_estudants'=>$remaining_estudants
+                'current_user_plan' => $planType,
+                'remaining_estudants' => $remaining_estudants
             ];
             return response()->json($data, 200);
         } catch (\Exception $exception) {
