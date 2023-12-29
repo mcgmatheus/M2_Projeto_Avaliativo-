@@ -59,9 +59,92 @@ class WorkoutController extends Controller
                         'created_at' => $workout->created_at,
                     ];
                 }),
+                'TERCA' => $studentData->workouts->where('day', 'TERCA')->map(function ($workout) {
+                    return [
+                        'id' => $workout->id,
+                        'exercise_id' => $workout->exercise_id,
+                        'exercise_description' => $workout->exercise->description,
+                        'repetitions' => $workout->repetitions,
+                        'weight' => $workout->weight,
+                        'break_time' => $workout->break_time,
+                        'day' => $workout->day,
+                        'observations' => $workout->observations,
+                        'time' => $workout->time,
+                        'created_at' => $workout->created_at,
+                    ];
+                }),
+                'QUARTA' => $studentData->workouts->where('day', 'QUARTA')->map(function ($workout) {
+                    return [
+                        'id' => $workout->id,
+                        'exercise_id' => $workout->exercise_id,
+                        'exercise_description' => $workout->exercise->description,
+                        'repetitions' => $workout->repetitions,
+                        'weight' => $workout->weight,
+                        'break_time' => $workout->break_time,
+                        'day' => $workout->day,
+                        'observations' => $workout->observations,
+                        'time' => $workout->time,
+                        'created_at' => $workout->created_at,
+                    ];
+                }),
+                'QUINTA' => $studentData->workouts->where('day', 'QUINTA')->map(function ($workout) {
+                    return [
+                        'id' => $workout->id,
+                        'exercise_id' => $workout->exercise_id,
+                        'exercise_description' => $workout->exercise->description,
+                        'repetitions' => $workout->repetitions,
+                        'weight' => $workout->weight,
+                        'break_time' => $workout->break_time,
+                        'day' => $workout->day,
+                        'observations' => $workout->observations,
+                        'time' => $workout->time,
+                        'created_at' => $workout->created_at,
+                    ];
+                }),
+                'SEXTA' => $studentData->workouts->where('day', 'SEXTA')->map(function ($workout) {
+                    return [
+                        'id' => $workout->id,
+                        'exercise_id' => $workout->exercise_id,
+                        'exercise_description' => $workout->exercise->description,
+                        'repetitions' => $workout->repetitions,
+                        'weight' => $workout->weight,
+                        'break_time' => $workout->break_time,
+                        'day' => $workout->day,
+                        'observations' => $workout->observations,
+                        'time' => $workout->time,
+                        'created_at' => $workout->created_at,
+                    ];
+                }),
+                'SABADO' => $studentData->workouts->where('day', 'SABADO')->map(function ($workout) {
+                    return [
+                        'id' => $workout->id,
+                        'exercise_id' => $workout->exercise_id,
+                        'exercise_description' => $workout->exercise->description,
+                        'repetitions' => $workout->repetitions,
+                        'weight' => $workout->weight,
+                        'break_time' => $workout->break_time,
+                        'day' => $workout->day,
+                        'observations' => $workout->observations,
+                        'time' => $workout->time,
+                        'created_at' => $workout->created_at,
+                    ];
+                }),
+                'DOMINGO' => $studentData->workouts->where('day', 'DOMINGO')->map(function ($workout) {
+                    return [
+                        'id' => $workout->id,
+                        'exercise_id' => $workout->exercise_id,
+                        'exercise_description' => $workout->exercise->description,
+                        'repetitions' => $workout->repetitions,
+                        'weight' => $workout->weight,
+                        'break_time' => $workout->break_time,
+                        'day' => $workout->day,
+                        'observations' => $workout->observations,
+                        'time' => $workout->time,
+                        'created_at' => $workout->created_at,
+                    ];
+                }),
             ],
         ];
-
-        return $studentData;
+        return $data;
     }
 }
