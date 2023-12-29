@@ -44,7 +44,7 @@ class WorkoutController extends Controller
             $userId = Auth::user()->id;
             $studentId = $request->input('id');
             $studentData = Student::with('workouts.exercise')->findOrFail($studentId);
-            if ($studentId && ($userId === $studentData->user_id)) {
+            if ($userId === $studentData->user_id) {
                 $data = [
                     'student_id' => $studentData->id,
                     'student_name' => $studentData->name,
@@ -151,10 +151,11 @@ class WorkoutController extends Controller
                 ];
                 return $data;
             }
-            if ($studentId && ($studentData->user_id !== $userId)) {
+            if ($studentData->user_id !== $userId) {
                 return response()->json(['message' => 'Acesso não autorizado'], 403);
             }
         } catch (ModelNotFoundException $exception) {
+            if (!$studentId) return response()->json(['message' => 'É necessário informar um id de aluno'], 400);
             return response()->json(['message' => 'Aluno não encontrado'], 404);
         } catch (\Exception $exception) {
             return response()->json(['message' => $exception->getMessage()], 400);
