@@ -35,4 +35,9 @@ class WorkoutController extends Controller
             return response()->json(['message' => $exception->getMessage()], 400);
         }
     }
+    public function show($id, Request $request)
+    {
+        $id = $request->input('id');
+        return $id;
+    }
 }

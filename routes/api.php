@@ -10,6 +10,9 @@ use App\Http\Middleware\verifyUserAccountLimit;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/students/{id}/workouts', [WorkoutController::class, 'show']);
+    Route::post('/workouts', [WorkoutController::class, 'store']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::post('/exercises', [ExerciseController::class, 'store']);
@@ -20,7 +23,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/students/{id}', [StudentController::class, 'destroy']);
     Route::put('/students/{id}', [StudentController::class, 'update']);
     Route::get('/students/{id}', [StudentController::class, 'show']);
-    Route::post('workouts', [WorkoutController::class, 'store']);
 });
 
 // rota pública
