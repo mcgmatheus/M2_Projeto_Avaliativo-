@@ -137,12 +137,14 @@ class StudentController extends Controller
                     'date_birth' => $student->date_birth,
                     'cpf' => $student->cpf,
                     'contact' => $student->contact,
-                    'city' => $student->city,
-                    'neighborhood' => $student->neighborhood,
-                    'number' => $student->number,
-                    'street' => $student->street,
-                    'state' => $student->state,
-                    'cep' => $student->cep,
+                    'adress' => [
+                        'cep' => $student->cep,
+                        'street' => $student->street,
+                        'state' => $student->state,
+                        'neighborhood' => $student->neighborhood,
+                        'city' => $student->city,
+                        'number' => $student->number,
+                    ],
                 ];
                 return response()->json($response, 200);
             };
