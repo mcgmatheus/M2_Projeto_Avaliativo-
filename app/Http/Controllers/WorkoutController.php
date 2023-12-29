@@ -39,15 +39,29 @@ class WorkoutController extends Controller
     public function show(Request $request)
     {
         $studentId = $request->input('id');
-        $studentData = Student::with('workouts')->find($studentId);
+        $studentData = Student::with('workouts.exercise')->find($studentId);
 
         $data = [
             'student_id' => $studentData->id,
+            'student_name' => $studentData->name,
             'workouts' => [
-                'SEGUNDA' => $studentData->workouts->where('day', 'SEGUNDA'),
+                'SEGUNDA' => $studentData->workouts->where('day', 'SEGUNDA')->map(function ($workout) {
+                    return [
+                        'id' => $workout->id,
+                        'exercise_id' => $workout->exercise_id,
+                        'exercise_description' => $workout->exercise->description,
+                        'repetitions' => $workout->repetitions,
+                        'weight' => $workout->weight,
+                        'break_time' => $workout->break_time,
+                        'day' => $workout->day,
+                        'observations' => $workout->observations,
+                        'time' => $workout->time,
+                        'created_at' => $workout->created_at,
+                    ];
+                }),
             ],
         ];
 
-        return $data;
+        return $studentData;
     }
 }
