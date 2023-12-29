@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,7 +97,17 @@ class StudentReportController extends Controller
                         'time' => $workout->time,
                     ];
                 });
-                return;
+                $pdf = PDF::loadView('pdfs.studentWorkoutsReport', [
+                    'name' => $studentName,
+                    'mondayWorkout' => $mondayWorkout,
+                    'tuesdayWorkout' => $tuesdayWorkout,
+                    'WednesdayWorkout' => $WednesdayWorkout,
+                    'thursdayWorkout' => $thursdayWorkout,
+                    'fridayWorkout' => $fridayWorkout,
+                    'saturdayWorkout' => $saturdayWorkout,
+                    'sundayWorkout' => $sundayWorkout
+                ]);
+                return $studentId;
             }
             if ($studentData->user_id !== $userId) {
                 return response()->json(['message' => 'Acesso não autorizado'], 403);
