@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exercise;
+use App\Models\Workout;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 
 class ExerciseController extends Controller
@@ -33,7 +33,8 @@ class ExerciseController extends Controller
             return response()->json(['message' => $exception->getMessage()], 400);
         }
     }
-    public function index(){
+    public function index()
+    {
         try {
             $user = Auth::user();
             $userId = $user->id;
@@ -50,13 +51,16 @@ class ExerciseController extends Controller
             $userId = $user->id;
             $exercise = Exercise::findOrFail($id);
             if ($exercise && ($userId === $exercise->user_id)) {
+                $searchExercise = Workout::where('exercise_id', $id)->exists();
+                if ($searchExercise) {
+                    return response()->json(['message' => 'Não é possivel delelar um exercício vinculado à um treino'], 409);
+                }
                 $exercise->delete();
-                return response()->json([''], 204);}
+                return response()->json([''], 204);
+            }
             if ($exercise && ($exercise->user_id !== $userId)) {
-                return response()->json(['message' => 'Acesso não autorizado'], 403);}
-
-                //Implementar verificação de exercicio vinculado a um treino
-
+                return response()->json(['message' => 'Acesso não autorizado'], 403);
+            }
         } catch (ModelNotFoundException $exception) {
             return response()->json(['message' => 'Exercício não encontrado'], 404);
         } catch (\Exception $exception) {
