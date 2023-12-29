@@ -10,5 +10,9 @@ class Student extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['name','email','date_birth','cpf','contact','user_id','city','neighborhood','number','street','state','cep'];
+    protected $fillable = ['name', 'email', 'date_birth', 'cpf', 'contact', 'user_id', 'city', 'neighborhood', 'number', 'street', 'state', 'cep'];
+    public function workouts()
+    {
+        return $this->hasMany(Workout::class);
+    }
 }
