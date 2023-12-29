@@ -42,7 +42,7 @@ class StudentReportController extends Controller
                         'time' => $workout->time,
                     ];
                 });
-                $WednesdayWorkout = $studentData->workouts->where('day', 'QUARTA')->sortBy('created_at')->map(function ($workout) {
+                $wednesdayWorkout = $studentData->workouts->where('day', 'QUARTA')->sortBy('created_at')->map(function ($workout) {
                     return [
                         'exercise_description' => $workout->exercise->description,
                         'repetitions' => $workout->repetitions,
@@ -101,13 +101,13 @@ class StudentReportController extends Controller
                     'name' => $studentName,
                     'mondayWorkout' => $mondayWorkout,
                     'tuesdayWorkout' => $tuesdayWorkout,
-                    'WednesdayWorkout' => $WednesdayWorkout,
+                    'wednesdayWorkout' => $wednesdayWorkout,
                     'thursdayWorkout' => $thursdayWorkout,
                     'fridayWorkout' => $fridayWorkout,
                     'saturdayWorkout' => $saturdayWorkout,
                     'sundayWorkout' => $sundayWorkout
                 ]);
-                return $studentId;
+                return $pdf->stream('Rotina_Exercícios.pdf');
             }
             if ($studentData->user_id !== $userId) {
                 return response()->json(['message' => 'Acesso não autorizado'], 403);
