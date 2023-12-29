@@ -9,4 +9,8 @@ class Workout extends Model
 {
     use HasFactory;
     protected $fillable = ['student_id', 'exercise_id', 'repetitions', 'weight', 'break_time', 'day', 'observations', 'time'];
+    public function exercises()
+    {
+        return $this->hasMany(Exercise::class);
+    }
 }

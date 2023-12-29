@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\Workout;
 use Exception;
 use Illuminate\Http\Request;
@@ -35,9 +36,18 @@ class WorkoutController extends Controller
             return response()->json(['message' => $exception->getMessage()], 400);
         }
     }
-    public function show($id, Request $request)
+    public function show(Request $request)
     {
-        $id = $request->input('id');
-        return $id;
+        $studentId = $request->input('id');
+        $studentData = Student::with('workouts')->find($studentId);
+
+        $data = [
+            'student_id' => $studentData->id,
+            'workouts' => [
+                'SEGUNDA' => $studentData->workouts->where('day', 'SEGUNDA'),
+            ],
+        ];
+
+        return $data;
     }
 }
