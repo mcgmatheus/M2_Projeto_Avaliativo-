@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/students/export/studentId', [StudentReportController::class, 'reportWorkouts']);
-    Route::get('/students/{id}/workouts', [WorkoutController::class, 'show']);
+    Route::get('/students/workouts', [WorkoutController::class, 'show']);
     Route::post('/workouts', [WorkoutController::class, 'store']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/dashboard', [DashboardController::class, 'index']);
