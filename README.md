@@ -1,6 +1,6 @@
 ### Projeto Avaliativo do Módulo 2 :: DEVinHouse
 
-# TrainsSys
+# TrainSys
 
 #### Uma ferramenta de gerenciamento de alunos e treinos para preparadores físicos e instrutores de academia.
 
@@ -16,8 +16,11 @@ Com a crescente demanda por uma vida mais saudável, os profissionais dessa áre
 ## Descrição do projeto
 
 Esta aplicação permite o cadastro de usuários e seus alunos, cadastro de exercícios, montagem de treinos individuais e personalizados.
+
 Através de um sistema de autenticação com login, as informações permanecem seguras enquanto são manipuladas por diferentes usuários.
+
 Outras features do sistema são envio de e-mail para um novo usuário cadastrado, e a exportação de arquivos PDF, que contem a rotina de exercícios de cada aluno.
+
 A aplicação foi desenvolvida com uso o framework Laravel 10 e utiliza um banco de dados PostgreSQL, e faz uso da biblioteca DOMPDF Wrapper for Laravel sendo essa a única dependência externa do projeto.
 
 ## Execução
@@ -60,6 +63,7 @@ A aplicação foi desenvolvida com uso o framework Laravel 10 e utiliza um banco
 ## Uso
 
 -   Cadastro de novo Usuário.
+-   
     Rota da requisição: post para `/api/users`
 
     Estrutura da tabela:
@@ -88,6 +92,7 @@ Exemplo da requisição:
 ---
 
 -   Login de usuário
+-   
     Para acessar o sistema, deve ser feita uma requisição post para `/api/login` tendo o corpo da solicitação como no exemplo:
 
           {
@@ -96,13 +101,19 @@ Exemplo da requisição:
           }
 
 A resposta ira conter um campo chamado `"token"` exibindo um token.
+
 **Esse token deve ser informado nas próximas solicitações.**
-Para realizar o logout, enviar uma requisição post para `/api/logout`. Não deve haver corpo da solicitação e o token deve estar presente na requisição.
+
+Para realizar o logout, enviar uma requisição post para `/api/logout`. 
+
+Não deve haver corpo da solicitação e o token deve estar presente na requisição.
 
 ---
 
 -   Dashboard
+-   
     Rota da requisição: get para `/api/dashboard`
+    
     Serão retornados algumas informações como quantidade de alunos e exercícios registrados, tipo de plano do usuário logado e quantidade restante de alunos que podem ser cadastrados a depender do plano.
 
 ---
@@ -130,7 +141,9 @@ Exemplo da requisição:
 -   Listagem de exercícios
 
     Rota da requisição: get para `/api/exercises/`
+    
     Serão retornados todos os exercícios cadastrados pelo usuário logado.
+    
     Não deve haver corpo da solicitação.
 
 ---
@@ -138,6 +151,7 @@ Exemplo da requisição:
 -   Deleção de exercícios
 
     Rota da requisição: delete para `/api/exercises/{id}`
+    
     Deve ser enviado via url o id do exercício a ser deletado.
 
 ---
@@ -181,7 +195,9 @@ Exemplo da requisição:
     Rota da requisição: get para `/api/students/`
 
     Serão retornados todos os alunos cadastrados pelo usuário logado, ordenados alfabeticamente.
+    
     Uma feature da aplicação também permite filtros nessa busca, podendo ser retornado um aluno informando "name", "cpf" ou "email" via Query Parameters.
+    
     Não deve haver corpo da solicitação.
 
 ---
@@ -191,6 +207,7 @@ Exemplo da requisição:
     -Rota da requisição: get para `/api/students/{id}`
 
     Deve ser enviado via url o id do aluno a ser pesquisado.
+    
     Não deve haver corpo da solicitação.
 
 ---
@@ -200,6 +217,7 @@ Exemplo da requisição:
     -Rota da requisição: delete para `/api/students/{id}`
 
     Deve ser enviado via url o id do aluno a ser pesquisado.
+    
     Não deve haver corpo da solicitação.
 
 ---
@@ -209,7 +227,12 @@ Exemplo da requisição:
     Rota da requisição: put para `/api/students/{id}`
 
     Deve ser enviado via url o id do aluno a ter os dados atualizados.
-    No corpo da requisição devem ser informados os valores a serem alterados. Mesmo após a atuaização, os valores de email e cpf ainda devem ser únicos no banco de dados. Caso seja informado algum valor já existente, a aplicação retornará um erro 400.
+    
+    No corpo da requisição devem ser informados os valores a serem alterados.
+    
+    Mesmo após a atuaização, os valores de email e cpf ainda devem ser únicos no banco de dados.
+    
+    Caso seja informado algum valor já existente, a aplicação retornará um erro 400.
 
     Exemplo da requisição:
 
