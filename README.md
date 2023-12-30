@@ -23,35 +23,39 @@ A aplicação foi desenvolvida com uso o framework Laravel 10 e utiliza um banco
 ## Execução
 
 1.  Clonar repositório através do link:
-    > https://github.com/mcgmatheus/M2_Projeto_Avaliativo-.git
+    `https://github.com/mcgmatheus/M2_Projeto_Avaliativo-.git`
 2.  Abrir a aplicação em sua IDE e executar o comando para instalar as dependências do projeto:
-    > composer install
+    `composer install`
 3.  Criar um banco de dados PostgreSQL com o nome:
-    > academia_api
+    `academia_api`
 4.  Criar uma cópia do arquivo de configuração .env:
-    > cp .env.example .env
+    `cp .env.example .env`
 5.  No arquivo de configuração, preencher os campos conforme banco de dados:
-    > DB_CONNECTION=' '
+
+        DB_CONNECTION=' '
         DB_HOST=' '
         DB_PORT=' '
         DB_DATABASE=' '
         DB_USERNAME=' '
         DB_PASSWORD=' '
+
 6.  Instalar as dependências da biblioteca DOMPDF Wrapper:
-    > composer require barryvdh/laravel-dompdf
+    `composer require barryvdh/laravel-dompdf`
 7.  Ainda no arquivo de configuração, preencher os campos conforme servidor de envio de e-mails:
-    > MAIL_MAILER=' '
-    > MAIL_HOST=' '
-    > MAIL_PORT=' '
-    > MAIL_USERNAME=' '
-    > MAIL_PASSWORD=' '
-    > MAIL_ENCRYPTION=' '
-    > MAIL_FROM_ADDRESS=' '
-    > MAIL_FROM_NAME=' '
+
+        MAIL_MAILER=' '
+        MAIL_HOST=' '
+        MAIL_PORT=' '
+        MAIL_USERNAME=' '
+        MAIL_PASSWORD=' '
+        MAIL_ENCRYPTION=' '
+        MAIL_FROM_ADDRESS=' '
+        MAIL_FROM_NAME=' '
+
 8.  Gerar tabelas no banco de dados:
-    > php artisan migrate
+    `php artisan migrate`
 9.  Iniciar o servidor de desenvolvimento do Laravel:
-    > php artisan serve
+    `php artisan serve`
 
 ## Uso
 
