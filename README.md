@@ -1,66 +1,242 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+### Projeto Avaliativo do Módulo 2 :: DEVinHouse
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# TrainsSys
 
-## About Laravel
+#### Uma ferramenta de gerenciamento de alunos e treinos para preparadores físicos e instrutores de academia.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Com a crescente demanda por uma vida mais saudável, os profissionais dessa área veem-se cada vez mais ocupados. Com o intuito de facilitar a organização de suas aulas, criou-se o TrainSys, uma ferramenta de gerenciamento de alunos e treinos, de fácil acesso e usabilidade.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Índice:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. [Descrição do Projeto](#descrição)
+2. [Como executar](#execução)
+3. [Uso](#uso)
+4. [Melhorias](#melhorias)
 
-## Learning Laravel
+## Descrição do projeto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Esta aplicação permite o cadastro de usuários e seus alunos, cadastro de exercícios, montagem de treinos individuais e personalizados.
+Através de um sistema de autenticação com login, as informações permanecem seguras enquanto são manipuladas por diferentes usuários.
+Outras features do sistema são envio de e-mail para um novo usuário cadastrado, e a exportação de arquivos PDF, que contem a rotina de exercícios de cada aluno.
+A aplicação foi desenvolvida com uso o framework Laravel 10 e utiliza um banco de dados PostgreSQL, e faz uso da biblioteca DOMPDF Wrapper for Laravel sendo essa a única dependência externa do projeto.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Execução
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1.  Clonar repositório através do link:
+    > https://github.com/mcgmatheus/M2_Projeto_Avaliativo-.git
+2.  Abrir a aplicação em sua IDE e executar o comando para instalar as dependências do projeto:
+    > composer install
+3.  Criar um banco de dados PostgreSQL com o nome:
+    > academia_api
+4.  Criar uma cópia do arquivo de configuração .env:
+    > cp .env.example .env
+5.  No arquivo de configuração, preencher os campos conforme banco de dados:
+    > DB_CONNECTION=' '
+        DB_HOST=' '
+        DB_PORT=' '
+        DB_DATABASE=' '
+        DB_USERNAME=' '
+        DB_PASSWORD=' '
+6.  Instalar as dependências da biblioteca DOMPDF Wrapper:
+    > composer require barryvdh/laravel-dompdf
+7.  Ainda no arquivo de configuração, preencher os campos conforme servidor de envio de e-mails:
+    > MAIL_MAILER=' '
+    > MAIL_HOST=' '
+    > MAIL_PORT=' '
+    > MAIL_USERNAME=' '
+    > MAIL_PASSWORD=' '
+    > MAIL_ENCRYPTION=' '
+    > MAIL_FROM_ADDRESS=' '
+    > MAIL_FROM_NAME=' '
+8.  Gerar tabelas no banco de dados:
+    > php artisan migrate
+9.  Iniciar o servidor de desenvolvimento do Laravel:
+    > php artisan serve
 
-## Laravel Sponsors
+## Uso
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+-   Cadastro de novo Usuário.
+    Rota da requisição: post para `/api/users`
+    Estrutura da tabela:
+    | Parâmetro | Tipo |
+    |--|--|
+    | id | Chave primária |
+    | name | string e obrigatório (nome do usuário) |
+    | email | string, obrigatório e único (e-mail usuário) |
+    | date_birth | data (yyyy-mm-dd) e obrigatório (data de nascimento) |
+    | cpf | string, obrigatório e único (cpf do usuário) |
+    | password | string e obrigatório (senha do usuário) |
+    | plan_id | chave estrangeira (tabela: plans) e obrigatório (tipo de plano) |
+    Exemplo da requisição:
 
-### Premium Partners
+         {
+          "name": "Matheus Gonçalves",
+          "email": "teste@teste.com",
+          "password": "teste",
+          "date_birth": "xxxx-xx-xx",
+          "cpf": "xxx.xxx.xxx-xx",
+          "plan_id": 1
+        }
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
+-   Login de usuário
+    Para acessar o sistema, deve ser feita uma requisição post para `/api/login` tendo o corpo da solicitação como no exemplo:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+          {
+          "email": "teste@teste.com",
+          "password": "teste"
+          }
 
-## Code of Conduct
+A resposta ira conter um campo chamado `"token"` exibindo um token.
+**Esse token deve ser informado nas próximas solicitações.**
+Para realizar o logout, enviar uma requisição post para `/api/logout`. Não deve haver corpo da solicitação e o token deve estar presente na requisição.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+-   Dashboard
+    Rota da requisição: get para `/api/dashboard`
+    Serão retornados algumas informações como quantidade de alunos e exercícios registrados, tipo de plano do usuário logado e quantidade restante de alunos que podem ser cadastrados a depender do plano.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+-   Cadastro de exercícios
+    Rota da requisição: post para `/api/exercises`
+    Estrutura da tabela:
+    | Parâmetro | Tipo |
+    |--|--|
+    | id | Chave primária |
+    | description | string e obrigatório (nome do exercício) |
+    | user_id | chave estrangeira (tabela: users) e obrigatória (usuário que realizou o cadastro deste exercício) |
+    Exemplo da requisição:
+    {
+    "description": "Supino"
+    }
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+-   Listagem de exercícios
+    Rota da requisição: get para `/api/exercises/`
+    Serão retornados todos os exercícios cadastrados pelo usuário logado.
+    Não deve haver corpo da solicitação.
+
+---
+
+-   Deleção de exercícios
+    Rota da requisição: delete para `/api/exercises/{id}`
+    Deve ser enviado via url o id do exercício a ser deletado.
+
+---
+
+-   Cadastro de aluno
+    Rota da requisição: post para `/api/students`
+    Estrutura da tabela:
+    | Parâmetro | Tipo |
+    |--|--|
+    | id | Chave primária |
+    | name | string e obrigatório (nome do aluno) |
+    | email | string, obrigatório e único (e-mail aluno) |
+    | date_birth | data (yyyy-mm-dd) e obrigatório (data de nascimento do aluno) |
+    | cpf | string, obrigatório e único (cpf do aluno) |
+    | contact | string e obrigatório (celular do aluno) |
+    | user_id | chave estrangeira (tabela: users) e obrigatório (usuário que cadastrou esse aluno) |
+    | city | string (cidade do aluno) |
+    | neighborhood | string (bairro do aluno) |
+    | number | string (numero residencial do aluno) |
+    | street | string (rua do aluno) |
+    | state | string (estado do aluno) |
+    | cep | string (cep do aluno) |
+
+    Exemplo da requisição:
+
+         {
+         "name": "Aluno Teste",
+         "email": "alunoteste@teste.com",
+         "date_birth": "xxxx-xx-xx",
+         "cpf": "xxx.xxx.xx-xx",
+         "contact": "(xx) xxxxx-xxxx
+         }
+
+---
+
+-   Listagem de alunos
+    Rota da requisição: get para `/api/students/`
+    Serão retornados todos os alunos cadastrados pelo usuário logado, ordenados alfabeticamente.
+    Uma feature da aplicação também permite filtros nessa busca, podendo ser retornado um aluno informando "name", "cpf" ou "email" via Query Parameters.
+    Não deve haver corpo da solicitação.
+
+---
+
+-   Listagem de um aluno
+    -Rota da requisição: get para `/api/students/{id}`
+    Deve ser enviado via url o id do aluno a ser pesquisado.
+    Não deve haver corpo da solicitação.
+
+---
+
+-   Deleção de aluno
+    -Rota da requisição: delete para `/api/students/{id}`
+    Deve ser enviado via url o id do aluno a ser pesquisado.
+    Não deve haver corpo da solicitação.
+
+---
+
+-   Atualização de um aluno
+    Rota da requisição: put para `/api/students/{id}`
+    Deve ser enviado via url o id do aluno a ter os dados atualizados.
+    No corpo da requisição devem ser informados os valores a serem alterados. Mesmo após a atuaização, os valores de email e cpf ainda devem ser únicos no banco de dados. Caso seja informado algum valor já existente, a aplicação retornará um erro 400.
+    Exemplo da requisição:
+    {
+    "name": "Aluno Teste",
+    "email": "alunoteste@teste.com",
+    }
+
+Nesse exemplo, estão sendo alterados os valores de "name" e "email" do aluno cujo id foi enviado via url.
+
+---
+
+-   Cadastro de treino
+    Rota da requisição: post para `/api/workouts`
+    Estrutura da tabela:
+    | Parâmetro | Tipo |
+    |--|--|
+    | id | Chave primária |
+    | student_id | chave estrangeira (tabela: students) e obrigatório (aluno pertencente ao treino) |
+    | exercise_id | chave estrangeira (tabela: exercises) e obrigatório (exercício pertencente ao treino) |
+    | repetitions | integer e obrigatório (repetições do exercício) |
+    | weight | decimal, obrigatório (carga do exercício) |
+    | break_time | integer e obrigatório (intervalo de descanso) |
+    | day | enum contendo os valores: SEGUNDA,TERCA,QUARTA,QUINTA,SEXTA,SABADO,DOMINGO |
+    | observations | text (observações gerais sobre o exercício) |
+    | time | integer e obrigatório (tempo da atividade caso não possua repetições) |
+    Exemplo da requisição:
+    {
+    "student_id": 1,
+    "exercise_id": 1,
+    "repetitions": 15,
+    "weight": 30,
+    "break_time": 60,
+    "day": "SEGUNDA",
+    "observations": "Realizar 3 séries",
+    "time": 60
+    }
+    Dessa maneira, adicionar exercícios individualmente a cada dia da semana conforme necessidade.
+
+---
+
+-   Listagem de treinos de um aluno
+    Rota da requisição: get para `/api/students/workouts`
+    Serão retornados todos treinos cadastrados para aquele aluno. O id do aluno deve ser informado via Query Parameters.
+
+---
+
+-   Exportação de PDF com roteiro de treinos
+    Rota da requisição: get para `/api/students/export/studentId`
+    Será retornado um arquivo PDF contendo todos os dias de treino, e as informações dos exercícios cadastrados nos respectivos dias.
+
+## Melhorias
+
+Sugestões de melhorias futuras:
+
+-   Implementar um método para deleção de treinos;
+-   Recuperação de alunos deletados, pois já está implementado o soft delete.
