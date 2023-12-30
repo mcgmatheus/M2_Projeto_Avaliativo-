@@ -61,17 +61,20 @@ A aplicação foi desenvolvida com uso o framework Laravel 10 e utiliza um banco
 
 -   Cadastro de novo Usuário.
     Rota da requisição: post para `/api/users`
+
     Estrutura da tabela:
-    | Parâmetro | Tipo |
-    |--|--|
-    | id | Chave primária |
-    | name | string e obrigatório (nome do usuário) |
-    | email | string, obrigatório e único (e-mail usuário) |
-    | date_birth | data (yyyy-mm-dd) e obrigatório (data de nascimento) |
-    | cpf | string, obrigatório e único (cpf do usuário) |
-    | password | string e obrigatório (senha do usuário) |
-    | plan_id | chave estrangeira (tabela: plans) e obrigatório (tipo de plano) |
-    Exemplo da requisição:
+
+    | Parâmetro  | Tipo                                                            |
+    | ---------- | --------------------------------------------------------------- |
+    | id         | Chave primária                                                  |
+    | name       | string e obrigatório (nome do usuário)                          |
+    | email      | string, obrigatório e único (e-mail usuário)                    |
+    | date_birth | data (yyyy-mm-dd) e obrigatório (data de nascimento)            |
+    | cpf        | string, obrigatório e único (cpf do usuário)                    |
+    | password   | string e obrigatório (senha do usuário)                         |
+    | plan_id    | chave estrangeira (tabela: plans) e obrigatório (tipo de plano) |
+
+Exemplo da requisição:
 
          {
           "name": "Matheus Gonçalves",
@@ -106,12 +109,15 @@ Para realizar o logout, enviar uma requisição post para `/api/logout`. Não de
 
 -   Cadastro de exercícios
     Rota da requisição: post para `/api/exercises`
+
     Estrutura da tabela:
-    | Parâmetro | Tipo |
-    |--|--|
-    | id | Chave primária |
-    | description | string e obrigatório (nome do exercício) |
-    | user_id | chave estrangeira (tabela: users) e obrigatória (usuário que realizou o cadastro deste exercício) |
+
+    | Parâmetro   | Tipo                                                                                              |
+    | ----------- | ------------------------------------------------------------------------------------------------- |
+    | id          | Chave primária                                                                                    |
+    | description | string e obrigatório (nome do exercício)                                                          |
+    | user_id     | chave estrangeira (tabela: users) e obrigatória (usuário que realizou o cadastro deste exercício) |
+
     Exemplo da requisição:
     {
     "description": "Supino"
@@ -134,22 +140,24 @@ Para realizar o logout, enviar uma requisição post para `/api/logout`. Não de
 
 -   Cadastro de aluno
     Rota da requisição: post para `/api/students`
+
     Estrutura da tabela:
-    | Parâmetro | Tipo |
-    |--|--|
-    | id | Chave primária |
-    | name | string e obrigatório (nome do aluno) |
-    | email | string, obrigatório e único (e-mail aluno) |
-    | date_birth | data (yyyy-mm-dd) e obrigatório (data de nascimento do aluno) |
-    | cpf | string, obrigatório e único (cpf do aluno) |
-    | contact | string e obrigatório (celular do aluno) |
-    | user_id | chave estrangeira (tabela: users) e obrigatório (usuário que cadastrou esse aluno) |
-    | city | string (cidade do aluno) |
-    | neighborhood | string (bairro do aluno) |
-    | number | string (numero residencial do aluno) |
-    | street | string (rua do aluno) |
-    | state | string (estado do aluno) |
-    | cep | string (cep do aluno) |
+
+    | Parâmetro    | Tipo                                                                               |
+    | ------------ | ---------------------------------------------------------------------------------- |
+    | id           | Chave primária                                                                     |
+    | name         | string e obrigatório (nome do aluno)                                               |
+    | email        | string, obrigatório e único (e-mail aluno)                                         |
+    | date_birth   | data (yyyy-mm-dd) e obrigatório (data de nascimento do aluno)                      |
+    | cpf          | string, obrigatório e único (cpf do aluno)                                         |
+    | contact      | string e obrigatório (celular do aluno)                                            |
+    | user_id      | chave estrangeira (tabela: users) e obrigatório (usuário que cadastrou esse aluno) |
+    | city         | string (cidade do aluno)                                                           |
+    | neighborhood | string (bairro do aluno)                                                           |
+    | number       | string (numero residencial do aluno)                                               |
+    | street       | string (rua do aluno)                                                              |
+    | state        | string (estado do aluno)                                                           |
+    | cep          | string (cep do aluno)                                                              |
 
     Exemplo da requisição:
 
@@ -201,18 +209,21 @@ Nesse exemplo, estão sendo alterados os valores de "name" e "email" do aluno cu
 
 -   Cadastro de treino
     Rota da requisição: post para `/api/workouts`
+
     Estrutura da tabela:
-    | Parâmetro | Tipo |
-    |--|--|
-    | id | Chave primária |
-    | student_id | chave estrangeira (tabela: students) e obrigatório (aluno pertencente ao treino) |
-    | exercise_id | chave estrangeira (tabela: exercises) e obrigatório (exercício pertencente ao treino) |
-    | repetitions | integer e obrigatório (repetições do exercício) |
-    | weight | decimal, obrigatório (carga do exercício) |
-    | break_time | integer e obrigatório (intervalo de descanso) |
-    | day | enum contendo os valores: SEGUNDA,TERCA,QUARTA,QUINTA,SEXTA,SABADO,DOMINGO |
-    | observations | text (observações gerais sobre o exercício) |
-    | time | integer e obrigatório (tempo da atividade caso não possua repetições) |
+
+    | Parâmetro    | Tipo                                                                                  |
+    | ------------ | ------------------------------------------------------------------------------------- |
+    | id           | Chave primária                                                                        |
+    | student_id   | chave estrangeira (tabela: students) e obrigatório (aluno pertencente ao treino)      |
+    | exercise_id  | chave estrangeira (tabela: exercises) e obrigatório (exercício pertencente ao treino) |
+    | repetitions  | integer e obrigatório (repetições do exercício)                                       |
+    | weight       | decimal, obrigatório (carga do exercício)                                             |
+    | break_time   | integer e obrigatório (intervalo de descanso)                                         |
+    | day          | enum contendo os valores: SEGUNDA,TERCA,QUARTA,QUINTA,SEXTA,SABADO,DOMINGO            |
+    | observations | text (observações gerais sobre o exercício)                                           |
+    | time         | integer e obrigatório (tempo da atividade caso não possua repetições)                 |
+
     Exemplo da requisição:
     {
     "student_id": 1,
