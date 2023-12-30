@@ -61,17 +61,20 @@ A aplicação foi desenvolvida com uso o framework Laravel 10 e utiliza um banco
 
 -   Cadastro de novo Usuário.
     Rota da requisição: post para `/api/users`
+
     Estrutura da tabela:
-    | Parâmetro | Tipo |
-    |--|--|
-    | id | Chave primária |
-    | name | string e obrigatório (nome do usuário) |
-    | email | string, obrigatório e único (e-mail usuário) |
-    | date_birth | data (yyyy-mm-dd) e obrigatório (data de nascimento) |
-    | cpf | string, obrigatório e único (cpf do usuário) |
-    | password | string e obrigatório (senha do usuário) |
-    | plan_id | chave estrangeira (tabela: plans) e obrigatório (tipo de plano) |
-    Exemplo da requisição:
+
+    | Parâmetro  | Tipo                                                            |
+    | ---------- | --------------------------------------------------------------- |
+    | id         | Chave primária                                                  |
+    | name       | string e obrigatório (nome do usuário)                          |
+    | email      | string, obrigatório e único (e-mail usuário)                    |
+    | date_birth | data (yyyy-mm-dd) e obrigatório (data de nascimento)            |
+    | cpf        | string, obrigatório e único (cpf do usuário)                    |
+    | password   | string e obrigatório (senha do usuário)                         |
+    | plan_id    | chave estrangeira (tabela: plans) e obrigatório (tipo de plano) |
+
+Exemplo da requisição:
 
          {
           "name": "Matheus Gonçalves",
@@ -105,21 +108,27 @@ Para realizar o logout, enviar uma requisição post para `/api/logout`. Não de
 ---
 
 -   Cadastro de exercícios
+
     Rota da requisição: post para `/api/exercises`
+
     Estrutura da tabela:
-    | Parâmetro | Tipo |
-    |--|--|
-    | id | Chave primária |
-    | description | string e obrigatório (nome do exercício) |
-    | user_id | chave estrangeira (tabela: users) e obrigatória (usuário que realizou o cadastro deste exercício) |
-    Exemplo da requisição:
-    {
-    "description": "Supino"
-    }
+
+    | Parâmetro   | Tipo                                                                                              |
+    | ----------- | ------------------------------------------------------------------------------------------------- |
+    | id          | Chave primária                                                                                    |
+    | description | string e obrigatório (nome do exercício)                                                          |
+    | user_id     | chave estrangeira (tabela: users) e obrigatória (usuário que realizou o cadastro deste exercício) |
+
+Exemplo da requisição:
+
+        {
+        "description": "Supino"
+        }
 
 ---
 
 -   Listagem de exercícios
+
     Rota da requisição: get para `/api/exercises/`
     Serão retornados todos os exercícios cadastrados pelo usuário logado.
     Não deve haver corpo da solicitação.
@@ -127,29 +136,33 @@ Para realizar o logout, enviar uma requisição post para `/api/logout`. Não de
 ---
 
 -   Deleção de exercícios
+
     Rota da requisição: delete para `/api/exercises/{id}`
     Deve ser enviado via url o id do exercício a ser deletado.
 
 ---
 
 -   Cadastro de aluno
+
     Rota da requisição: post para `/api/students`
+
     Estrutura da tabela:
-    | Parâmetro | Tipo |
-    |--|--|
-    | id | Chave primária |
-    | name | string e obrigatório (nome do aluno) |
-    | email | string, obrigatório e único (e-mail aluno) |
-    | date_birth | data (yyyy-mm-dd) e obrigatório (data de nascimento do aluno) |
-    | cpf | string, obrigatório e único (cpf do aluno) |
-    | contact | string e obrigatório (celular do aluno) |
-    | user_id | chave estrangeira (tabela: users) e obrigatório (usuário que cadastrou esse aluno) |
-    | city | string (cidade do aluno) |
-    | neighborhood | string (bairro do aluno) |
-    | number | string (numero residencial do aluno) |
-    | street | string (rua do aluno) |
-    | state | string (estado do aluno) |
-    | cep | string (cep do aluno) |
+
+    | Parâmetro    | Tipo                                                                               |
+    | ------------ | ---------------------------------------------------------------------------------- |
+    | id           | Chave primária                                                                     |
+    | name         | string e obrigatório (nome do aluno)                                               |
+    | email        | string, obrigatório e único (e-mail aluno)                                         |
+    | date_birth   | data (yyyy-mm-dd) e obrigatório (data de nascimento do aluno)                      |
+    | cpf          | string, obrigatório e único (cpf do aluno)                                         |
+    | contact      | string e obrigatório (celular do aluno)                                            |
+    | user_id      | chave estrangeira (tabela: users) e obrigatório (usuário que cadastrou esse aluno) |
+    | city         | string (cidade do aluno)                                                           |
+    | neighborhood | string (bairro do aluno)                                                           |
+    | number       | string (numero residencial do aluno)                                               |
+    | street       | string (rua do aluno)                                                              |
+    | state        | string (estado do aluno)                                                           |
+    | cep          | string (cep do aluno)                                                              |
 
     Exemplo da requisição:
 
@@ -164,7 +177,9 @@ Para realizar o logout, enviar uma requisição post para `/api/logout`. Não de
 ---
 
 -   Listagem de alunos
+
     Rota da requisição: get para `/api/students/`
+
     Serão retornados todos os alunos cadastrados pelo usuário logado, ordenados alfabeticamente.
     Uma feature da aplicação também permite filtros nessa busca, podendo ser retornado um aluno informando "name", "cpf" ou "email" via Query Parameters.
     Não deve haver corpo da solicitação.
@@ -172,28 +187,36 @@ Para realizar o logout, enviar uma requisição post para `/api/logout`. Não de
 ---
 
 -   Listagem de um aluno
+
     -Rota da requisição: get para `/api/students/{id}`
+
     Deve ser enviado via url o id do aluno a ser pesquisado.
     Não deve haver corpo da solicitação.
 
 ---
 
 -   Deleção de aluno
+
     -Rota da requisição: delete para `/api/students/{id}`
+
     Deve ser enviado via url o id do aluno a ser pesquisado.
     Não deve haver corpo da solicitação.
 
 ---
 
 -   Atualização de um aluno
+
     Rota da requisição: put para `/api/students/{id}`
+
     Deve ser enviado via url o id do aluno a ter os dados atualizados.
     No corpo da requisição devem ser informados os valores a serem alterados. Mesmo após a atuaização, os valores de email e cpf ainda devem ser únicos no banco de dados. Caso seja informado algum valor já existente, a aplicação retornará um erro 400.
+
     Exemplo da requisição:
-    {
-    "name": "Aluno Teste",
-    "email": "alunoteste@teste.com",
-    }
+
+        {
+        "name": "Aluno Teste",
+        "email": "alunoteste@teste.com",
+        }
 
 Nesse exemplo, estão sendo alterados os valores de "name" e "email" do aluno cujo id foi enviado via url.
 
@@ -201,41 +224,50 @@ Nesse exemplo, estão sendo alterados os valores de "name" e "email" do aluno cu
 
 -   Cadastro de treino
     Rota da requisição: post para `/api/workouts`
+
     Estrutura da tabela:
-    | Parâmetro | Tipo |
-    |--|--|
-    | id | Chave primária |
-    | student_id | chave estrangeira (tabela: students) e obrigatório (aluno pertencente ao treino) |
-    | exercise_id | chave estrangeira (tabela: exercises) e obrigatório (exercício pertencente ao treino) |
-    | repetitions | integer e obrigatório (repetições do exercício) |
-    | weight | decimal, obrigatório (carga do exercício) |
-    | break_time | integer e obrigatório (intervalo de descanso) |
-    | day | enum contendo os valores: SEGUNDA,TERCA,QUARTA,QUINTA,SEXTA,SABADO,DOMINGO |
-    | observations | text (observações gerais sobre o exercício) |
-    | time | integer e obrigatório (tempo da atividade caso não possua repetições) |
+
+    | Parâmetro    | Tipo                                                                                  |
+    | ------------ | ------------------------------------------------------------------------------------- |
+    | id           | Chave primária                                                                        |
+    | student_id   | chave estrangeira (tabela: students) e obrigatório (aluno pertencente ao treino)      |
+    | exercise_id  | chave estrangeira (tabela: exercises) e obrigatório (exercício pertencente ao treino) |
+    | repetitions  | integer e obrigatório (repetições do exercício)                                       |
+    | weight       | decimal, obrigatório (carga do exercício)                                             |
+    | break_time   | integer e obrigatório (intervalo de descanso)                                         |
+    | day          | enum contendo os valores: SEGUNDA,TERCA,QUARTA,QUINTA,SEXTA,SABADO,DOMINGO            |
+    | observations | text (observações gerais sobre o exercício)                                           |
+    | time         | integer e obrigatório (tempo da atividade caso não possua repetições)                 |
+
     Exemplo da requisição:
-    {
-    "student_id": 1,
-    "exercise_id": 1,
-    "repetitions": 15,
-    "weight": 30,
-    "break_time": 60,
-    "day": "SEGUNDA",
-    "observations": "Realizar 3 séries",
-    "time": 60
-    }
+
+        {
+        "student_id": 1,
+        "exercise_id": 1,
+        "repetitions": 15,
+        "weight": 30,
+        "break_time": 60,
+        "day": "SEGUNDA",
+        "observations": "Realizar 3 séries",
+        "time": 60
+        }
+
     Dessa maneira, adicionar exercícios individualmente a cada dia da semana conforme necessidade.
 
 ---
 
 -   Listagem de treinos de um aluno
+
     Rota da requisição: get para `/api/students/workouts`
+
     Serão retornados todos treinos cadastrados para aquele aluno. O id do aluno deve ser informado via Query Parameters.
 
 ---
 
 -   Exportação de PDF com roteiro de treinos
+
     Rota da requisição: get para `/api/students/export/studentId`
+
     Será retornado um arquivo PDF contendo todos os dias de treino, e as informações dos exercícios cadastrados nos respectivos dias.
 
 ## Melhorias
